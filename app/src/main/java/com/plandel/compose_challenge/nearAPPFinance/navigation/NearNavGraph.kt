@@ -6,11 +6,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.plandel.compose_challenge.nearAPPFinance.details.NearDetailsScreen
 import com.plandel.compose_challenge.nearAPPFinance.home.NearHomeScreen
 
 @Composable
 fun NearNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = NearScreen.NearHomeScreen.route) {
+    NavHost(navController = navController, startDestination = NearScreen.NearDetailsScreen.route) {
 
         composable(NearScreen.NearHomeScreen.route) {
             NearHomeScreen(navController)
@@ -21,7 +22,7 @@ fun NearNavGraph(navController: NavHostController) {
                 type = NavType.IntType
             }
         )) {
-
+            NearDetailsScreen(navController = navController)
         }
     }
 }

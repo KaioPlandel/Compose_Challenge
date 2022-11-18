@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.plandel.compose_challenge.nearAPPFinance.navigation.NearNavGraph
+import com.plandel.compose_challenge.app_portfolio.navigation.PortNavigation
 import com.plandel.compose_challenge.ui.theme.Compose_ChallengeTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,9 +12,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Compose_ChallengeTheme {
-                val navController  = rememberNavController()
-
-                NearNavGraph(navController = navController)
+                val navController = rememberNavController()
+                PortNavigation(navController = navController)
             }
         }
     }
