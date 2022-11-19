@@ -8,13 +8,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.plandel.compose_challenge.R
+import com.plandel.compose_challenge.app_portfolio.model.Earn
+import com.plandel.compose_challenge.app_portfolio.model.ItemImage
 import com.plandel.compose_challenge.ui.theme.BackgroundBox
 import com.plandel.compose_challenge.ui.theme.BackgroundMenu
 import com.plandel.compose_challenge.ui.theme.backgroundSplash
@@ -37,6 +42,28 @@ fun PortHomeScreen(navController: NavHostController) {
         PToBar(money = "$22.580.500")
         ResumeScreen()
         MenuSection()
+        TypeSection(
+            listOf(
+                Earn(
+                    company = Icons.Default.Home,
+                    title = "Twitter",
+                    earn = "151516",
+                    amount = "145151"
+                ),
+                Earn(
+                    company = Icons.Default.Home,
+                    title = "Twitter",
+                    earn = "151516",
+                    amount = "145151"
+                ),
+                Earn(
+                    company = Icons.Default.Home,
+                    title = "Twitter",
+                    earn = "151516",
+                    amount = "145151"
+                )
+            )
+        )
     }
 }
 
@@ -136,12 +163,113 @@ fun MenuSection(modifier: Modifier = Modifier) {
             .height(120.dp)
             .padding(start = 20.dp, top = 2.dp, end = 20.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(BackgroundMenu)
+            .background(BackgroundMenu),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
-
+        val listItens = listOf<ItemImage>(
+            ItemImage(
+                Icons.Default.Home,
+                "Deposit"
+            ),
+            ItemImage(
+                Icons.Default.Home,
+                "Transfer"
+            ),
+            ItemImage(
+                Icons.Default.Home,
+                "Convert"
+            ),
+            ItemImage(
+                Icons.Default.ArrowDropDown,
+                "More"
+            ),
+        )
+        for (item in listItens) {
+            ItemMenu(item.imageVector, item.title)
+        }
     }
 }
 
+@Composable
+fun ItemMenu(imageVector: ImageVector, title: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            imageVector = imageVector,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(Color.Black)
+
+        )
+        Text(text = title, color = Color.Black)
+    }
+}
+
+@Composable
+fun TypeSection(
+    listEarn: List<Earn>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 15.dp, start = 20.dp, end = 20.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = "Your Portfolio",
+            color = Color.White,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        )
+        for (item in listEarn) {
+            TypeItem(earn = item)
+        }
+    }
+}
+
+@Composable
+fun TypeItem(
+    earn: Earn,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp)
+            .height(80.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.DarkGray),
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(1.dp)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .clip(RoundedCornerShape(12.dp))
+                .background(MaterialTheme.colors.backgroundSplash),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                imageVector = earn.company,
+                contentDescription = null,
+                Modifier
+                    .size(70.dp)
+                    .padding(start = 6.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Column {
+                Text(
+                    text = earn.title,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+}
 
 
 
